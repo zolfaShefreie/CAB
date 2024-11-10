@@ -56,7 +56,7 @@ class EmoActCvae(nn.Module):
         self.emo_encoder = TransEncoder(config.emb_dim, config.hidden_dim, num_layers = config.hop, num_heads = config.heads, total_key_depth = config.depth,total_value_depth = config.depth, filter_size = config.filter, universal=config.universal, layer_dropout=args.dropout)
         self.emo_attention = nn.Sequential(*[EmoAttention(config.hidden_dim, config.depth, config.depth, config.hidden_dim, dropout=args.dropout) for _ in range(config.hop)])
         self.act_encoder = Encoder(config.emb_dim, config.hidden_dim, num_layers = config.hop, num_heads = config.heads, total_key_depth = config.depth,total_value_depth = config.depth, filter_size = config.filter, universal=config.universal, layer_dropout=args.dropout)
-        self.add_path = Node_attention_layer(args.d_model, args.d_model, self.embedding)
+        self.add_path = Node_attention_layer(config.hidden_dim, config.hidden_dim, self.embedding)
         self.r_encoder = Encoder(config.emb_dim, config.hidden_dim, num_layers = config.hop, num_heads = config.heads, total_key_depth = config.depth,total_value_depth = config.depth, filter_size = config.filter, universal=config.universal, layer_dropout=args.dropout)
 
         self.emo_s_latent_layer = Latent(is_eval)
